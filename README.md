@@ -2,7 +2,7 @@ Square Root
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Computes an element-wise square root for each element in a numeric array.
+> Computes an element-wise principal square root for each element in a numeric array.
 
 
 ## Installation
@@ -24,7 +24,7 @@ var sqrt = require( 'compute-sqrt' );
 
 #### sqrt( arr )
 
-Computes an element-wise square root for each element in a numeric `array`.
+Computes an element-wise principal square root for each element in a numeric `array`.
 
 ``` javascript
 var data = [ 4, 9, 16 ];

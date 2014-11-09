@@ -46,7 +46,7 @@ describe( 'compute-sqrt', function tests() {
 		}
 	});
 
-	it( 'should compute an element-wise square root', function test() {
+	it( 'should compute an element-wise principal square root', function test() {
 		var data, expected;
 
 		data = [ 1, 4, 9, 16, 25 ];

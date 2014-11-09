@@ -1,6 +1,6 @@
 {
   "name": "compute-sqrt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Computes an element-wise principal square root for each element in a numeric array.",
   "author": {
     "name": "Athan Reines",

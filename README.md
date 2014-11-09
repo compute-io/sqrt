@@ -1,4 +1,4 @@
-sqrt
+Square Root
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
@@ -19,18 +19,36 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 To use the module,
 
 ``` javascript
-var foo = require( 'compute-sqrt' );
+var sqrt = require( 'compute-sqrt' );
 ```
 
-#### foo( arr )
+#### sqrt( arr )
 
-What does this function do?
+Computes an element-wise square root for each element in a numeric `array`.
+
+``` javascript
+var data = [ 4, 9, 16 ];
+
+sqrt( data );
+// returns [ 2, 3, 4 ]
+```
 
 
 ## Examples
 
 ``` javascript
-var foo = require( 'compute-sqrt' );
+var sqrt = require( 'compute-sqrt' );
+
+// Simulate some data...
+var data = new Array( 100 );
+
+for ( var i = 0; i < data.length; i++ ) {
+	data[ i ] = Math.round( Math.random()*1000 );
+}
+
+sqrt( data );
+
+console.log( data.join( '\n' ) );
 ```
 
 To run the example code from the top-level application directory,
@@ -38,6 +56,20 @@ To run the example code from the top-level application directory,
 ``` bash
 $ node ./examples/index.js
 ```
+
+
+## Notes
+
+This function mutates the input `array`. If mutation is undesired,
+
+``` javascript
+var data = [ 1, 2, 3, 4 ],
+	copy = data.slice();
+
+sqrt( copy );
+```
+
+This function expects positive real values. For any `array` elements which are negative valued, the function returns `NaN`.
 
 
 ## Tests

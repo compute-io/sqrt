@@ -25,7 +25,13 @@
   "keywords": [
     "compute.io",
     "compute",
-    "computation"
+    "computation",
+    "mathematics",
+    "math",
+    "array",
+    "square root",
+    "power",
+    "element-wise"
   ],
   "bugs": {
     "url": "https://github.com/compute-io/sqrt/issues"

@@ -1,7 +1,7 @@
 {
   "name": "compute-sqrt",
   "version": "1.0.1",
-  "description": "Computes an element-wise principal square root for each element in a numeric array.",
+  "description": "Computes an element-wise principal square root.",
   "author": {
     "name": "Athan Reines",
     "email": "kgryte@gmail.com"
@@ -31,17 +31,26 @@
     "array",
     "square root",
     "power",
-    "element-wise"
+    "element-wise",
+    "sqrt",
+    "accessor"
   ],
   "bugs": {
     "url": "https://github.com/compute-io/sqrt/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "validate.io-array": "^1.0.5",
+    "validate.io-boolean-primitive": "^1.0.0",
+    "validate.io-function": "^1.0.2",
+    "validate.io-object": "^1.0.3"
+  },
   "devDependencies": {
-    "chai": "1.x.x",
-    "mocha": "1.x.x",
+    "chai": "2.x.x",
     "coveralls": "^2.11.1",
-    "istanbul": "^0.3.0"
+    "istanbul": "^0.3.0",
+    "jshint": "2.x.x",
+    "jshint-stylish": "^1.0.0",
+    "mocha": "2.x.x"
   },
   "licenses": [
     {

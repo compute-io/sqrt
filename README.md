@@ -2,7 +2,7 @@ Square Root
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Computes an element-wise principal square root for each element in a numeric array.
+> Computes an element-wise principal square root.
 
 
 ## Installation
@@ -16,22 +16,63 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 
 ## Usage
 
-To use the module,
-
 ``` javascript
 var sqrt = require( 'compute-sqrt' );
 ```
 
-#### sqrt( arr )
+#### sqrt( x[, opts] )
 
-Computes an element-wise principal square root for each element in a numeric `array`.
+Computes an element-wise principal square root. The function accepts as its first argument either a single `numeric` value or an `array`. For an input `array`, the square root is computed for each value.
 
 ``` javascript
-var data = [ 4, 9, 16 ];
+var out = sqrt( 9 );
+// returns 3
 
-sqrt( data );
+out = sqrt( [ 4, 9, 16 ] );
 // returns [ 2, 3, 4 ]
 ```
+
+When provided an input `array`, the function accepts two `options`:
+
+*  __copy__: `boolean` indicating whether to return a new `array` containing the square root values. Default: `true`.
+*  __accessor__: accessor `function` for accessing numeric values in object `arrays`.
+
+To mutate the input `array` (e.g., when input values can be discarded or when optimizing memory usage), set the `copy` option to `false`.
+
+``` javascript
+var arr = [ 4, 9, 16 ];
+
+var out = sqrt( arr, {
+	'copy': false
+});
+// returns [ 2, 3, 4 ]
+
+console.log( arr === out );
+// returns true
+```
+
+For object `arrays`, provide an accessor `function` for accessing `array` values.
+
+``` javascript
+var data = [
+	['beep', 4],
+	['boop', 9],
+	['bip', 16],
+	['bap', 25],
+	['baz', 36]
+];
+
+function getValue( d, i ) {
+	return d[ 1 ];
+}
+
+var out = sqrt( data, {
+	'accessor': getValue
+});
+// returns [ 2, 3, 4, 5, 6 ]
+```
+
+
 
 
 ## Examples
@@ -39,16 +80,14 @@ sqrt( data );
 ``` javascript
 var sqrt = require( 'compute-sqrt' );
 
-// Simulate some data...
 var data = new Array( 100 );
-
 for ( var i = 0; i < data.length; i++ ) {
 	data[ i ] = Math.round( Math.random()*1000 );
 }
 
-sqrt( data );
+var out = sqrt( data );
 
-console.log( data.join( '\n' ) );
+console.log( out.join( '\n' ) );
 ```
 
 To run the example code from the top-level application directory,
@@ -58,25 +97,12 @@ $ node ./examples/index.js
 ```
 
 
-## Notes
-
-This function mutates the input `array`. If mutation is undesired,
-
-``` javascript
-var data = [ 1, 2, 3, 4 ],
-	copy = data.slice();
-
-sqrt( copy );
-```
-
-This function expects positive real values. For any `array` elements which are negative valued, the function returns `NaN`.
-
 
 ## Tests
 
 ### Unit
 
-Unit tests use the [Mocha](http://visionmedia.github.io/mocha) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
+Unit tests use the [Mocha](http://mochajs.org) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
 
 ``` bash
 $ make test
@@ -100,15 +126,15 @@ $ make view-cov
 ```
 
 
+---
 ## License
 
 [MIT license](http://opensource.org/licenses/MIT). 
 
 
----
 ## Copyright
 
-Copyright &copy; 2014. Athan Reines.
+Copyright &copy; 2014-2015. The Compute.io Authors.
 
 
 [npm-image]: http://img.shields.io/npm/v/compute-sqrt.svg

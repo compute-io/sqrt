@@ -39,6 +39,7 @@
     "url": "https://github.com/compute-io/sqrt/issues"
   },
   "dependencies": {
+    "utils-copy": "^1.0.0",
     "validate.io-array": "^1.0.5",
     "validate.io-boolean-primitive": "^1.0.0",
     "validate.io-function": "^1.0.2",

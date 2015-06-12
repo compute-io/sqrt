@@ -48,9 +48,49 @@ describe( 'compute-sqrt', function tests() {
 		}
 	});
 
-	it( 'should throw an error if provided an invalid option' );
+	it( 'should throw an error if provided an invalid option', function test() {
+		var values = [
+			'5',
+			5,
+			true,
+			undefined,
+			null,
+			NaN,
+			[],
+			{}
+		];
 
-	it( 'should throw an error if provided an unrecognized/unsupported data type option', function test() {
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[i] ) ).to.throw( TypeError );
+		}
+		function badValue( value ) {
+			return function() {
+				sqrt( [1,2,3], {
+					'accessor': value
+				});
+			};
+		}
+	});
+
+	it( 'should throw an error if provided an array and an unrecognized/unsupported data type option', function test() {
+		var values = [
+			'beep',
+			'boop'
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[i] ) ).to.throw( Error );
+		}
+		function badValue( value ) {
+			return function() {
+				sqrt( [1,2,3], {
+					'dtype': value
+				});
+			};
+		}
+	});
+
+	it( 'should throw an error if provided a matrix and an unrecognized/unsupported data type option', function test() {
 		var values = [
 			'beep',
 			'boop'
@@ -110,6 +150,19 @@ describe( 'compute-sqrt', function tests() {
 		assert.deepEqual( data, expected );
 	});
 
+	it( 'should compute an element-wise principal square and return an array of a specific type', function test() {
+		var data, actual, expected;
+
+		data = [ 1, 4, 9, 16, 25 ];
+		expected = new Int8Array( [ 1, 2, 3, 4, 5 ] );
+
+		actual = sqrt( data, {
+			'dtype': 'int8'
+		});
+		assert.notEqual( actual, data );
+		assert.deepEqual( actual, expected );
+	});
+
 	it( 'should compute an element-wise principal square root using an accessor', function test() {
 		var data, actual, expected;
 
@@ -141,9 +194,97 @@ describe( 'compute-sqrt', function tests() {
 		}
 	});
 
-	it( 'should compute an element-wise principal square root and deep set' );
+	it( 'should compute an element-wise principal square root and deep set', function test() {
+		var data, actual, expected;
 
-	it( 'should compute an element-wise principal square root when provided a matrix' );
+		data = [
+			{'x':[0,1]},
+			{'x':[1,4]},
+			{'x':[2,9]},
+			{'x':[3,16]},
+			{'x':[4,25]}
+		];
+		expected = [
+			{'x':[0,1]},
+			{'x':[1,2]},
+			{'x':[2,3]},
+			{'x':[3,4]},
+			{'x':[4,5]}
+		];
+
+		actual = sqrt( data, {
+			'path': 'x.1'
+		});
+		assert.strictEqual( actual, data );
+		assert.deepEqual( actual, expected );
+
+		// Specify a path with a custom separator...
+		data = [
+			{'x':[0,1]},
+			{'x':[1,4]},
+			{'x':[2,9]},
+			{'x':[3,16]},
+			{'x':[4,25]}
+		];
+
+		actual = sqrt( data, {
+			'path': 'x/1',
+			'sep': '/'
+		});
+		assert.strictEqual( actual, data );
+		assert.deepEqual( actual, expected );
+	});
+
+	it( 'should compute an element-wise principal square root when provided a matrix', function test() {
+		var mat,
+			out,
+			d1,
+			d2,
+			d3,
+			i;
+
+		d1 = new Int16Array( 25 );
+		d2 = new Float64Array( 25 );
+		d3 = new Int16Array( 25 );
+		for ( i = 0; i < d1.length; i++ ) {
+			d1[ i ] = i*i;
+			d2[ i ] = i;
+			d3[ i ] = i;
+		}
+		mat = matrix( d1, [5,5], 'int16' );
+		out = sqrt( mat );
+
+		assert.deepEqual( out.data, d2 );
+
+		// Mutate...
+		out = sqrt( mat, {
+			'copy': false
+		});
+		assert.strictEqual( mat, out );
+		assert.deepEqual( mat.data, d3 );
+	});
+
+	it( 'should compute an element-wise principal square and return a matrix of a specific type', function test() {
+		var mat,
+			out,
+			d1,
+			d2,
+			i;
+
+		d1 = new Int16Array( 25 );
+		d2 = new Float32Array( 25 );
+		for ( i = 0; i < d1.length; i++ ) {
+			d1[ i ] = i*i;
+			d2[ i ] = i;
+		}
+		mat = matrix( d1, [5,5], 'int16' );
+		out = sqrt( mat, {
+			'dtype': 'float32'
+		});
+
+		assert.strictEqual( out.dtype, 'float32' );
+		assert.deepEqual( out.data, d2 );
+	});
 
 	it( 'should return `null` if provided an empty data structure', function test() {
 		assert.isNull( sqrt( [] ) );

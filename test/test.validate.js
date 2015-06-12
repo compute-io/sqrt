@@ -86,6 +86,50 @@ describe( 'validate', function tests() {
 		}
 	});
 
+	it( 'should return an error if provided a path option which is not a string primitive', function test() {
+		var values, err;
+
+		values = [
+			5,
+			true,
+			undefined,
+			null,
+			NaN,
+			[],
+			{},
+			function(){}
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			err = validate( {}, {
+				'path': values[ i ]
+			});
+			assert.isTrue( err instanceof TypeError );
+		}
+	});
+
+	it( 'should return an error if provided a separator option which is not a string primitive', function test() {
+		var values, err;
+
+		values = [
+			5,
+			true,
+			undefined,
+			null,
+			NaN,
+			[],
+			{},
+			function(){}
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			err = validate( {}, {
+				'sep': values[ i ]
+			});
+			assert.isTrue( err instanceof TypeError );
+		}
+	});
+
 	it( 'should return an error if provided a dtype option which is not a string primitive', function test() {
 		var values, err;
 
@@ -114,6 +158,9 @@ describe( 'validate', function tests() {
 		err = validate( {}, {
 			'accessor': function getValue(){},
 			'copy': false,
+			'deepset': true,
+			'path': 'x/y',
+			'sep': '/',
 			'dtype': 'int32'
 		});
 

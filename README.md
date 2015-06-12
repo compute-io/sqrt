@@ -107,6 +107,17 @@ out = sqrt( data, {
 	'accessor': getValue
 });
 
+// Deep set arrays...
+for ( i = 0; i < data.length; i++ ) {
+	data[ i ] = {
+		'x': [ i, data[ i ].x ]
+	};
+}
+out = sqrt( data, {
+	'path': 'x/1',
+	'sep': '/'
+});
+
 // Typed arrays...
 data = new Int32Array( 10 );
 for ( i = 0; i < data.length; i++ ) {

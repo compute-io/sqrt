@@ -118,6 +118,13 @@ describe( 'validate', function tests() {
 		});
 
 		assert.isNull( err );
+
+		err = validate( {}, {
+			'beep': true, // misc options
+			'boop': 'bop'
+		});
+
+		assert.isNull( err );
 	});
 
 });

@@ -78,16 +78,50 @@ var out = sqrt( data, {
 ## Examples
 
 ``` javascript
-var sqrt = require( 'compute-sqrt' );
+var matrix = require( 'dstructs-matrix' ),
+	sqrt = require( 'compute-sqrt' );
 
-var data = new Array( 100 );
-for ( var i = 0; i < data.length; i++ ) {
+var data,
+	mat,
+	out,
+	tmp,
+	i;
+
+// Plain arrays...
+data = new Array( 10 );
+for ( i = 0; i < data.length; i++ ) {
 	data[ i ] = Math.round( Math.random()*1000 );
 }
+out = sqrt( data );
 
-var out = sqrt( data );
+// Object arrays (accessors)...
+function getValue( d ) {
+	return d.x;
+}
+for ( i = 0; i < data.length; i++ ) {
+	data[ i ] = {
+		'x': data[ i ]
+	};
+}
+out = sqrt( data, {
+	'accessor': getValue
+});
 
-console.log( out.join( '\n' ) );
+// Typed arrays...
+data = new Int32Array( 10 );
+for ( i = 0; i < data.length; i++ ) {
+	data[ i ] = Math.random() * 100;
+}
+out = sqrt( data );
+
+// Matrices...
+mat = matrix( data, [5,2], 'int32' );
+out = sqrt( mat );
+
+// Matrices (custom output data type)...
+out = sqrt( mat, {
+	'dtype': 'uint8'
+});
 ```
 
 To run the example code from the top-level application directory,

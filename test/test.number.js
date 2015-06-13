@@ -30,4 +30,17 @@ describe( 'number sqrt', function tests() {
 		assert.strictEqual( sqrt( 81 ), 9 );
 	});
 
+	it( 'should return `NaN` if provided with a negative number', function test() {
+		var val;
+
+		val = sqrt( -9 );
+		assert.isTrue( val !== val );
+
+		val = sqrt( -900 );
+		assert.isTrue( val !== val );
+
+		val = sqrt( -81 );
+		assert.isTrue( val !== val );
+	});
+
 });

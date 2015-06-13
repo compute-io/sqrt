@@ -38,7 +38,8 @@
     "set",
     "get",
     "matrix",
-    "matrices"
+    "matrices",
+    "number"
   ],
   "bugs": {
     "url": "https://github.com/compute-io/sqrt/issues"

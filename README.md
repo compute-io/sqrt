@@ -11,7 +11,7 @@ The principal [square root](https://en.wikipedia.org/wiki/Square_root) is define
 	<br>
 </div>
 
-The principal [square root](https://en.wikipedia.org/wiki/Square_root) is __not__ defined for negative numbers.
+For negative numbers, the principal [square root](https://en.wikipedia.org/wiki/Square_root) is __not__ defined.
 
 
 
@@ -86,11 +86,11 @@ For non-numeric `arrays`, provide an accessor `function` for accessing `array` v
 
 ``` javascript
 var data = [
-	[0, 4],
-	[1, 9],
-	[2, 16],
-	[3, 25],
-	[4, 36]
+	[0,4],
+	[1,9],
+	[2,16],
+	[3,25],
+	[4,36]
 ];
 
 function getValue( d, i ) {
@@ -129,15 +129,23 @@ var bool = ( data === out );
 // returns true
 ```
 
-By default, when provided a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) or [`matrix`](https://github.com/dstructs/matrix), the output data structure is `float64` in order to preserve precision. To specify a different data type, set the `dtype` option.
+By default, when provided a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) or [`matrix`](https://github.com/dstructs/matrix), the output data structure is `float64` in order to preserve precision. To specify a different data type, set the `dtype` option (see [`matrix`](https://github.com/dstructs/matrix) for a list of acceptable data types).
 
 ``` javascript
-var data = new Int8Array( [4,9,16] );
+var data, out;
 
-var out = sqrt( data, {
+data = new Int8Array( [4,9,16] );
+
+out = sqrt( data, {
 	'dtype': 'int32'
 });
 // returns Int32Array( [2,3,4] )
+
+// Works for plain arrays, as well...
+out = sqrt( [4,9,16], {
+	'dtype': 'uint8'
+});
+// returns Uint8Array( [2,3,4] )
 ```
 
 By default, the function returns a new data structure. To mutate the input data structure, set the `copy` option to `false`.

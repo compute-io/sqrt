@@ -56,7 +56,7 @@ out = sqrt( data );
 // returns Float64Array( [2,3,4] )
 
 data = new Int16Array( 6 );
-for ( i = 0; i < 10; i++ ) {
+for ( i = 0; i < 6; i++ ) {
 	data[ i ] = i*i;
 }
 mat = matrix( data, [3,2], 'int16' );
@@ -103,7 +103,7 @@ var out = sqrt( data, {
 // returns [ 2, 3, 4, 5, 6 ]
 ```
 
-To [deepset](https://github.com/kgryte/utils-deep-set) an object `array`, provide a key path and, optionally, a key path separator. 
+To [deepset](https://github.com/kgryte/utils-deep-set) an object `array`, provide a key path and, optionally, a key path separator.
 
 ``` javascript
 var data = [
@@ -121,7 +121,7 @@ var out = sqrt( data, 'x|1', '|' );
 		{'x':[1,3]},
 		{'x':[2,4]},
 		{'x':[3,5]},
-		{'x':[4,6]}	
+		{'x':[4,6]}
 	]
 */
 
@@ -168,7 +168,7 @@ bool = ( data === out );
 // returns true
 
 data = new Int16Array( 6 );
-for ( i = 0; i < 10; i++ ) {
+for ( i = 0; i < 6; i++ ) {
 	data[ i ] = i*i;
 }
 mat = matrix( data, [3,2], 'int16' );
@@ -293,7 +293,7 @@ $ make view-cov
 ---
 ## License
 
-[MIT license](http://opensource.org/licenses/MIT). 
+[MIT license](http://opensource.org/licenses/MIT).
 
 
 ## Copyright

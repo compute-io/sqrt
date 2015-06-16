@@ -1,7 +1,8 @@
 'use strict';
 
 var matrix = require( 'dstructs-matrix' ),
-	sqrt = require( './../lib' );
+	sqrt = require( './../lib' ),
+	util = require( 'util' );
 
 var data,
 	mat,
@@ -46,7 +47,9 @@ out = sqrt( data, {
 	'path': 'x/1',
 	'sep': '/'
 });
-console.log( 'Deepset: %s\n', out );
+console.log( 'Deepset:');
+console.log( util.inspect( out ) );
+console.log( '\n' );
 
 
 // ----

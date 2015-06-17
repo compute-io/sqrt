@@ -1,6 +1,6 @@
 {
   "name": "compute-sqrt",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Computes an element-wise principal square root.",
   "author": {
     "name": "Athan Reines",

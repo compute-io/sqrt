@@ -45,9 +45,9 @@ describe( 'array sqrt', function tests() {
 		assert.deepEqual( actual, expected, 'typed arrays' );
 	});
 
-	it( 'should return null if provided an empty array', function test() {
-		assert.isNull( sqrt( [], [] ) );
-		assert.isNull( sqrt( new Int8Array(), new Int8Array() ) );
+	it( 'should return an empty array if provided an empty array', function test() {
+		assert.deepEqual( sqrt( [], [] ), [] );
+		assert.deepEqual( sqrt( new Int8Array(), new Int8Array() ), new Int8Array() );
 	});
 
 });

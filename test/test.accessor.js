@@ -47,8 +47,8 @@ describe( 'accessor sqrt', function tests() {
 		}
 	});
 
-	it( 'should return null if provided an empty array', function test() {
-		assert.isNull( sqrt( [], [], getValue ) );
+	it( 'should return an empty array if provided an empty array', function test() {
+		assert.deepEqual( sqrt( [], [], getValue ), [] );
 		function getValue( d ) {
 			return d.x;
 		}

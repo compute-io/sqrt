@@ -286,10 +286,10 @@ describe( 'compute-sqrt', function tests() {
 		assert.deepEqual( out.data, d2 );
 	});
 
-	it( 'should return `null` if provided an empty data structure', function test() {
-		assert.isNull( sqrt( [] ) );
-		assert.isNull( sqrt( matrix( [0,0] ) ) );
-		assert.isNull( sqrt( new Int8Array() ) );
+	it( 'should return an empty data structure if provided an empty data structure', function test() {
+		assert.deepEqual( sqrt( [] ), [] );
+		assert.deepEqual( sqrt( matrix( [0,0] ) ).data, new Float64Array() );
+		assert.deepEqual( sqrt( new Int8Array() ), new Float64Array() );
 	});
 
 });

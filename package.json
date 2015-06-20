@@ -39,7 +39,8 @@
     "get",
     "matrix",
     "matrices",
-    "number"
+    "number",
+    "dstructs"
   ],
   "bugs": {
     "url": "https://github.com/compute-io/sqrt/issues"

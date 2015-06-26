@@ -50,7 +50,6 @@
     "dstructs-matrix": "^2.0.0",
     "utils-deep-get": "^1.0.0",
     "utils-deep-set": "^1.0.1",
-    "validate.io-array": "^1.0.6",
     "validate.io-array-like": "^1.0.1",
     "validate.io-boolean-primitive": "^1.0.0",
     "validate.io-function": "^1.0.2",

@@ -54,4 +54,25 @@ describe( 'accessor sqrt', function tests() {
 		}
 	});
 
+	it( 'should handle non-numeric values by setting the element to NaN', function test() {
+		var data, actual, expected;
+
+		data = [
+			{'x':true},
+			{'x':null},
+			{'x':[]},
+			{'x':{}}
+		];
+		actual = new Array( data.length );
+		actual = sqrt( actual, data, getValue );
+
+		expected = [ NaN, NaN, NaN, NaN ];
+
+		assert.deepEqual( actual, expected );
+
+		function getValue( d ) {
+			return d.x;
+		}
+	});
+
 });

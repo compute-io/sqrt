@@ -168,7 +168,7 @@ describe( 'compute-sqrt', function tests() {
 		assert.deepEqual( data, expected );
 	});
 
-	it( 'should compute an element-wise principal square and return an array of a specific type', function test() {
+	it( 'should compute an element-wise principal square root and return an array of a specific type', function test() {
 		var data, actual, expected;
 
 		data = [ 1, 4, 9, 16, 25 ];
@@ -283,7 +283,7 @@ describe( 'compute-sqrt', function tests() {
 		assert.deepEqual( mat.data, d3 );
 	});
 
-	it( 'should compute an element-wise principal square and return a matrix of a specific type', function test() {
+	it( 'should compute an element-wise principal square root and return a matrix of a specific type', function test() {
 		var mat,
 			out,
 			d1,

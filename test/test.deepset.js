@@ -71,9 +71,30 @@ describe( 'deepset sqrt', function tests() {
 		assert.deepEqual( data, expected, 'custom separator' );
 	});
 
-	it( 'should return null if provided an empty array', function test() {
-		assert.isNull( sqrt( [], 'x' ) );
-		assert.isNull( sqrt( [], 'x', '/' ) );
+	it( 'should return an empty array if provided an empty array', function test() {
+		assert.deepEqual( sqrt( [], 'x' ), [] );
+		assert.deepEqual( sqrt( [], 'x', '/' ), [] );
+	});
+
+	it( 'should handle non-numeric values by setting the element to NaN', function test() {
+		var data, actual, expected;
+
+		data = [
+			{'x':true},
+			{'x':null},
+			{'x':[]},
+			{'x':{}}
+		];
+		actual = sqrt( data, 'x' );
+
+		expected = [
+			{'x':NaN},
+			{'x':NaN},
+			{'x':NaN},
+			{'x':NaN}
+		];
+
+		assert.deepEqual( data, expected );
 	});
 
 });

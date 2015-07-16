@@ -9,6 +9,9 @@ var // Expectation library:
 	// Matrix data structure:
 	matrix = require( 'dstructs-matrix' ),
 
+	// Validate a value is NaN:
+	isnan = require( 'validate.io-nan' ),
+
 	// Module to be tested:
 	sqrt = require( './../lib' );
 
@@ -25,27 +28,6 @@ describe( 'compute-sqrt', function tests() {
 
 	it( 'should export a function', function test() {
 		expect( sqrt ).to.be.a( 'function' );
-	});
-
-	it( 'should throw an error if the first argument is neither a number or array-like or matrix-like', function test() {
-		var values = [
-			// '5', // valid as is array-like (length)
-			true,
-			undefined,
-			null,
-			NaN,
-			function(){},
-			{}
-		];
-
-		for ( var i = 0; i < values.length; i++ ) {
-			expect( badValue( values[i] ) ).to.throw( TypeError );
-		}
-		function badValue( value ) {
-			return function() {
-				sqrt( value );
-			};
-		}
 	});
 
 	it( 'should throw an error if provided an invalid option', function test() {
@@ -90,6 +72,24 @@ describe( 'compute-sqrt', function tests() {
 		}
 	});
 
+	it( 'should throw an error if provided a typed-array and an unrecognized/unsupported data type option', function test() {
+		var values = [
+			'beep',
+			'boop'
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[i] ) ).to.throw( Error );
+		}
+		function badValue( value ) {
+			return function() {
+				sqrt( new Int8Array([1,2,3]), {
+					'dtype': value
+				});
+			};
+		}
+	});
+
 	it( 'should throw an error if provided a matrix and an unrecognized/unsupported data type option', function test() {
 		var values = [
 			'beep',
@@ -108,9 +108,27 @@ describe( 'compute-sqrt', function tests() {
 		}
 	});
 
+	it( 'should return NaN if the first argument is neither a number, array-like, or matrix-like', function test() {
+		var values = [
+			// '5', // valid as is array-like (length)
+			true,
+			undefined,
+			null,
+			// NaN, // allowed
+			function(){},
+			{}
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			assert.isTrue( isnan( sqrt( values[ i ] ) ) );
+		}
+	});
+
 	it( 'should compute the principal square root when provided a number', function test() {
 		assert.strictEqual( sqrt( 9 ), 3 );
 		assert.strictEqual( sqrt( 25 ), 5 );
+
+		assert.isTrue( isnan( sqrt( NaN ) ) );
 	});
 
 	it( 'should compute an element-wise principal square root when provided a plain array', function test() {
@@ -150,7 +168,7 @@ describe( 'compute-sqrt', function tests() {
 		assert.deepEqual( data, expected );
 	});
 
-	it( 'should compute an element-wise principal square and return an array of a specific type', function test() {
+	it( 'should compute an element-wise principal square root and return an array of a specific type', function test() {
 		var data, actual, expected;
 
 		data = [ 1, 4, 9, 16, 25 ];
@@ -160,6 +178,7 @@ describe( 'compute-sqrt', function tests() {
 			'dtype': 'int8'
 		});
 		assert.notEqual( actual, data );
+		assert.strictEqual( actual.BYTES_PER_ELEMENT, 1 );
 		assert.deepEqual( actual, expected );
 	});
 
@@ -264,7 +283,7 @@ describe( 'compute-sqrt', function tests() {
 		assert.deepEqual( mat.data, d3 );
 	});
 
-	it( 'should compute an element-wise principal square and return a matrix of a specific type', function test() {
+	it( 'should compute an element-wise principal square root and return a matrix of a specific type', function test() {
 		var mat,
 			out,
 			d1,
@@ -286,10 +305,10 @@ describe( 'compute-sqrt', function tests() {
 		assert.deepEqual( out.data, d2 );
 	});
 
-	it( 'should return `null` if provided an empty data structure', function test() {
-		assert.isNull( sqrt( [] ) );
-		assert.isNull( sqrt( matrix( [0,0] ) ) );
-		assert.isNull( sqrt( new Int8Array() ) );
+	it( 'should return an empty data structure if provided an empty data structure', function test() {
+		assert.deepEqual( sqrt( [] ), [] );
+		assert.deepEqual( sqrt( matrix( [0,0] ) ).data, new Float64Array() );
+		assert.deepEqual( sqrt( new Int8Array() ), new Float64Array() );
 	});
 
 });

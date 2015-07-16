@@ -18,7 +18,7 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'array sqrt', function tests() {
+describe( 'typed-array sqrt', function tests() {
 
 	it( 'should export a function', function test() {
 		expect( sqrt ).to.be.a( 'function' );
@@ -27,29 +27,17 @@ describe( 'array sqrt', function tests() {
 	it( 'should compute the principal square root', function test() {
 		var data, actual, expected;
 
-		data = [ 4, 0, 9, 100, 81, 16 ];
-		actual = new Array( data.length );
+		data = new Int32Array( [ 4, 0, 9, 100, 81, 16 ] );
+		actual = new Float64Array( data.length );
 
 		actual = sqrt( actual, data );
-		expected = [ 2, 0, 3, 10, 9, 4 ];
+		expected = new Float64Array( [ 2, 0, 3, 10, 9, 4 ] );
 
 		assert.deepEqual( actual, expected );
 	});
 
 	it( 'should return an empty array if provided an empty array', function test() {
-		assert.deepEqual( sqrt( [], [] ), [] );
-	});
-
-	it( 'should handle non-numeric values by setting the element to NaN', function test() {
-		var data, actual, expected;
-
-		data = [ true, null, [], {} ];
-		actual = new Array( data.length );
-		actual = sqrt( actual, data );
-
-		expected = [ NaN, NaN, NaN, NaN ];
-
-		assert.deepEqual( actual, expected );
+		assert.deepEqual( sqrt( new Int8Array(), new Int8Array() ), new Int8Array() );
 	});
 
 });

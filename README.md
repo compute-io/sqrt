@@ -148,7 +148,7 @@ out = sqrt( [4,9,16], {
 // returns Uint8Array( [2,3,4] )
 ```
 
-By default, the function returns a new data structure. To mutate the input data structure, set the `copy` option to `false`.
+By default, the function returns a new data structure. To mutate the input data structure (e.g., when input values can be discarded or when optimizing memory usage), set the `copy` option to `false`.
 
 ``` javascript
 var data,
@@ -192,6 +192,61 @@ bool = ( mat === out );
 ```
 
 
+## Notes
+
+*	If an element is __not__ a numeric value, the evaluated principal [square root](https://en.wikipedia.org/wiki/Square_root) is `NaN`.
+
+	``` javascript
+	var data, out;
+
+	out = sqrt( null );
+	// returns NaN
+
+	out = sqrt( true );
+	// returns NaN
+
+	out = sqrt( {'a':'b'} );
+	// returns NaN
+
+	out = sqrt( [ true, null, [] ] );
+	// returns [ NaN, NaN, NaN ]
+
+	function getValue( d, i ) {
+		return d.x;
+	}
+	data = [
+		{'x':true},
+		{'x':[]},
+		{'x':{}},
+		{'x':null}
+	];
+
+	out = sqrt( data, {
+		'accessor': getValue
+	});
+	// returns [ NaN, NaN, NaN, NaN ]
+
+	out = sqrt( data, {
+		'path': 'x'
+	});
+	/*
+		[
+			{'x':NaN},
+			{'x':NaN},
+			{'x':NaN,
+			{'x':NaN}
+		]
+	*/
+	```
+
+*	Be careful when providing a data structure which contains non-numeric elements and specifying an `integer` output data type, as `NaN` values are cast to `0`.
+
+	``` javascript
+	var out = sqrt( [ true, null, [] ], {
+		'dtype': 'int8'
+	});
+	// returns Int8Array( [0,0,0] );
+	```
 
 
 ## Examples

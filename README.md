@@ -114,7 +114,10 @@ var data = [
 	{'x':[4,36]}
 ];
 
-var out = sqrt( data, 'x|1', '|' );
+var out = sqrt( data, {
+	'path': 'x|1',
+	'sep': '|'
+});
 /*
 	[
 		{'x':[0,2]},
